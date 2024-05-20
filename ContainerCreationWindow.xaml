@@ -34,7 +34,7 @@
             </ComboBox>
             <TextBox Name="CurrentVolumeTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Current Volume (ml, Optional)" Margin="0,0,0,10"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Add" Width="100" Click="AddButton_Click" Margin="0,0,10,0"/>
+                <Button x:Name="ActionButton" Content="Add" Width="100" Click="AddButton_Click" Margin="0,0,10,0"/>
                 <Button Content="Cancel" Width="100" Click="CancelButton_Click"/>
             </StackPanel>
         </StackPanel>

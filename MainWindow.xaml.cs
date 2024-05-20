@@ -77,9 +77,9 @@ namespace Winery
 
         private void EditContainer_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedContainer != null)
+            if (dataGridContainers.SelectedItem is Container selectedContainer)
             {
-                var containerCreationWindow = new ContainerCreationWindow(SelectedContainer);
+                var containerCreationWindow = new ContainerCreationWindow(selectedContainer);
                 containerCreationWindow.ShowDialog();
                 dataGridContainers.ItemsSource = null;
                 dataGridContainers.ItemsSource = WineryContext.Instance.Containers.Local;

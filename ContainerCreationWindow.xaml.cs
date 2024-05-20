@@ -21,7 +21,19 @@ namespace Winery
                 NewContainer = containerInfo;
                 this.DataContext = NewContainer;
 
+                // Pre-populate fields
+                TankIDTextBox.Text = NewContainer.TankID;
+                WineIDTextBox.Text = NewContainer.WineID;
+                MaxVolumeTextBox.Text = NewContainer.MaxVolume.ToString();
+                CurrentVolumeTextBox.Text = NewContainer.CurrentVolume.ToString();
+
+                // Pre-fill ComboBoxes with selected values
+                TypeComboBox.SelectedItem = TypeComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == NewContainer.Type.ToString());
+                StatusComboBox.SelectedItem = StatusComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == NewContainer.Status.ToString());
+                LocationComboBox.SelectedItem = LocationComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == NewContainer.Location.ToString());
+
                 this.Title = "Update Container";
+                ActionButton.Content = "Save"; // Change button content for edit mode
             }
             else
             {
@@ -30,6 +42,7 @@ namespace Winery
                 this.DataContext = NewContainer;
 
                 this.Title = "Add Container";
+                ActionButton.Content = "Add"; // Set button content for add mode
             }
         }
 
@@ -130,7 +143,7 @@ namespace Winery
             bool retVal = true;
             errorMessage = "";
 
-            if (TypeComboBox.SelectedItem == null || ((ComboBoxItem)TypeComboBox.SelectedItem).Content.ToString() == "Select Type")
+            if (TypeComboBox.SelectedItem == null)
             {
                 retVal = false;
                 errorMessage += "Select Type!\n";
@@ -138,7 +151,17 @@ namespace Winery
             }
             else
             {
-                TypeComboBox.ClearValue(BorderBrushProperty);
+                try
+                {
+                    NewContainer.Type = (Container.ContainerType)Enum.Parse(typeof(Container.ContainerType), ((ComboBoxItem)TypeComboBox.SelectedItem).Content.ToString());
+                    TypeComboBox.ClearValue(BorderBrushProperty);
+                }
+                catch (Exception)
+                {
+                    retVal = false;
+                    errorMessage += "Invalid Type selection!\n";
+                    TypeComboBox.BorderBrush = Brushes.Red;
+                }
             }
 
             if (String.IsNullOrWhiteSpace(MaxVolumeTextBox.Text) || !int.TryParse(MaxVolumeTextBox.Text, out int maxVolume) || maxVolume <= 0)
@@ -153,7 +176,7 @@ namespace Winery
                 NewContainer.MaxVolume = maxVolume; // Ensure the parsed value is set to the container
             }
 
-            if (StatusComboBox.SelectedItem == null || ((ComboBoxItem)StatusComboBox.SelectedItem).Content.ToString() == "Select Status")
+            if (StatusComboBox.SelectedItem == null)
             {
                 retVal = false;
                 errorMessage += "Select Status!\n";
@@ -161,10 +184,20 @@ namespace Winery
             }
             else
             {
-                StatusComboBox.ClearValue(BorderBrushProperty);
+                try
+                {
+                    NewContainer.Status = (Container.ContainerStatus)Enum.Parse(typeof(Container.ContainerStatus), ((ComboBoxItem)StatusComboBox.SelectedItem).Content.ToString());
+                    StatusComboBox.ClearValue(BorderBrushProperty);
+                }
+                catch (Exception)
+                {
+                    retVal = false;
+                    errorMessage += "Invalid Status selection!\n";
+                    StatusComboBox.BorderBrush = Brushes.Red;
+                }
             }
 
-            if (LocationComboBox.SelectedItem == null || ((ComboBoxItem)LocationComboBox.SelectedItem).Content.ToString() == "Select Location")
+            if (LocationComboBox.SelectedItem == null)
             {
                 retVal = false;
                 errorMessage += "Select Location!\n";
@@ -172,7 +205,17 @@ namespace Winery
             }
             else
             {
-                LocationComboBox.ClearValue(BorderBrushProperty);
+                try
+                {
+                    NewContainer.Location = (Container.ContainerLocation)Enum.Parse(typeof(Container.ContainerLocation), ((ComboBoxItem)LocationComboBox.SelectedItem).Content.ToString());
+                    LocationComboBox.ClearValue(BorderBrushProperty);
+                }
+                catch (Exception)
+                {
+                    retVal = false;
+                    errorMessage += "Invalid Location selection!\n";
+                    LocationComboBox.BorderBrush = Brushes.Red;
+                }
             }
 
             if (String.IsNullOrWhiteSpace(CurrentVolumeTextBox.Text) || !int.TryParse(CurrentVolumeTextBox.Text, out int currentVolume))
