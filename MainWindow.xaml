@@ -1,0 +1,38 @@
+﻿<Window x:Class="Winery.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Winery"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl SelectedIndex="{Binding SelectedTab}">
+            <!-- Cars Tab -->
+            <TabItem Header="Containers">
+                <Grid>
+                    <DataGrid Name="dataGridContainers" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedContainer}" SelectionMode="Single" Margin="10,10,10,50">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tank ID" Binding="{Binding TankID}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <!-- Locations Tab -->
+            <TabItem Header="Wines">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="19*"/>
+                        <ColumnDefinition Width="775*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="dataGridWines" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedWine}" SelectionMode="Single" Margin="10,10,10,50" Grid.ColumnSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Wine ID" Binding="{Binding WineID}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
