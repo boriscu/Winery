@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winery"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="464" Width="800">
     <Grid>
         <TabControl SelectedIndex="{Binding SelectedTab}">
             <!-- Cars Tab -->
@@ -17,6 +17,7 @@
                             <DataGridTextColumn Header="Tank ID" Binding="{Binding TankID}" Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>
+                    <Button Content="Add Container" HorizontalAlignment="Left" Margin="10,370,0,0" VerticalAlignment="Top" Height="28" Width="96" Click="AddContainerButton_Click"/>
                 </Grid>
             </TabItem>
             <!-- Locations Tab -->

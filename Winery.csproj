@@ -66,8 +66,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Container.cs" />
+    <Compile Include="ContainerCreationWindow.xaml.cs">
+      <DependentUpon>ContainerCreationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Wine.cs" />
     <Compile Include="WineryContext.cs" />
+    <Page Include="ContainerCreationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

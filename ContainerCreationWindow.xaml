@@ -1,0 +1,42 @@
+﻿<Window x:Class="Winery.ContainerCreationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add Container" Height="400" Width="400">
+    <Grid>
+        <StackPanel Margin="10">
+            <TextBox Name="TankIDTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Tank ID (Optional)" Margin="0,0,0,10"/>
+            <TextBox Name="WineIDTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Wine ID (Optional)" Margin="0,0,0,10"/>
+            <TextBox Name="MaxVolumeTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Max Volume (ml)" Margin="0,0,0,10"/>
+            <ComboBox Name="TypeComboBox" Margin="0,0,0,10">
+                <ComboBoxItem Content="Select Type" IsEnabled="False" IsSelected="True" />
+                <ComboBoxItem Content="Tank"/>
+                <ComboBoxItem Content="Barrel"/>
+                <ComboBoxItem Content="Bottle"/>
+                <ComboBoxItem Content="Keg"/>
+                <ComboBoxItem Content="Vat"/>
+            </ComboBox>
+
+            <ComboBox Name="StatusComboBox" Margin="0,0,0,10">
+                <ComboBoxItem Content="Select Status" IsEnabled="False" IsSelected="True" />
+                <ComboBoxItem Content="Closed"/>
+                <ComboBoxItem Content="Opened"/>
+                <ComboBoxItem Content="InUse"/>
+                <ComboBoxItem Content="Maintenance"/>
+                <ComboBoxItem Content="Empty"/>
+            </ComboBox>
+
+            <ComboBox Name="LocationComboBox" Margin="0,0,0,10">
+                <ComboBoxItem Content="Select Location" IsEnabled="False" IsSelected="True" />
+                <ComboBoxItem Content="Basement"/>
+                <ComboBoxItem Content="Hangar"/>
+                <ComboBoxItem Content="Outside"/>
+                <ComboBoxItem Content="Storage"/>
+            </ComboBox>
+            <TextBox Name="CurrentVolumeTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Current Volume (ml, Optional)" Margin="0,0,0,10"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Add" Width="100" Click="AddButton_Click" Margin="0,0,10,0"/>
+                <Button Content="Cancel" Width="100" Click="CancelButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

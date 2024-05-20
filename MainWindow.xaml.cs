@@ -67,6 +67,29 @@ namespace Winery
             this.DataContext = this;
         }
 
+        private void AddContainerButton_Click(object sender, RoutedEventArgs e)
+        {
+            var containerCreationWindow = new ContainerCreationWindow();
+            containerCreationWindow.ShowDialog();
+            dataGridContainers.ItemsSource = null;
+            dataGridContainers.ItemsSource = WineryContext.Instance.Containers.Local;
+        }
+
+        private void EditContainerButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedContainer != null)
+            {
+                var containerCreationWindow = new ContainerCreationWindow(SelectedContainer);
+                containerCreationWindow.ShowDialog();
+                dataGridContainers.ItemsSource = null;
+                dataGridContainers.ItemsSource = WineryContext.Instance.Containers.Local;
+            }
+            else
+            {
+                MessageBox.Show("Please select a container to edit.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show($"Selected tab: {SelectedTab}");
