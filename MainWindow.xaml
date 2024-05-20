@@ -15,6 +15,27 @@
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Tank ID" Binding="{Binding TankID}" Width="*" />
+                            <DataGridTextColumn Header="Wine ID" Binding="{Binding WineID}" Width="*" />
+                            <DataGridTextColumn Header="Max Volume" Binding="{Binding MaxVolume}" Width="*" />
+                            <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" />
+                            <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="*" />
+                            <DataGridTextColumn Header="Current Volume" Binding="{Binding CurrentVolume}" Width="*" />
+                            <DataGridTextColumn Header="Last Edit Date" Binding="{Binding LastEditDate}" Width="*" />
+                            <DataGridTemplateColumn Header="Actions" Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Button Click="EditContainer_Click" Margin="0,0,5,0" Padding="0" Background="Transparent" BorderBrush="Transparent" ToolTip="Edit Container">
+                                                <Image Source="pack://application:,,,/Images/edit.png" Width="16" Height="16"/>
+                                            </Button>
+                                            <Button Click="DeleteContainer_Click" Margin="0,0,0,0" Padding="0" Background="Transparent" BorderBrush="Transparent" ToolTip="Delete Container">
+                                                <Image Source="pack://application:,,,/Images/delete.png" Width="16" Height="16"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button Content="Add Container" HorizontalAlignment="Left" Margin="10,370,0,0" VerticalAlignment="Top" Height="28" Width="96" Click="AddContainerButton_Click"/>
