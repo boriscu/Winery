@@ -26,14 +26,12 @@ namespace Winery
                 WineIDTextBox.Text = NewContainer.WineID;
                 MaxVolumeTextBox.Text = NewContainer.MaxVolume.ToString();
                 CurrentVolumeTextBox.Text = NewContainer.CurrentVolume.ToString();
-
-                // Pre-fill ComboBoxes with selected values
                 TypeComboBox.SelectedItem = TypeComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == NewContainer.Type.ToString());
                 StatusComboBox.SelectedItem = StatusComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == NewContainer.Status.ToString());
                 LocationComboBox.SelectedItem = LocationComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == NewContainer.Location.ToString());
 
                 this.Title = "Update Container";
-                ActionButton.Content = "Save"; // Change button content for edit mode
+                ActionButton.Content = "Save";
             }
             else
             {
@@ -42,7 +40,7 @@ namespace Winery
                 this.DataContext = NewContainer;
 
                 this.Title = "Add Container";
-                ActionButton.Content = "Add"; // Set button content for add mode
+                ActionButton.Content = "Add"; 
             }
         }
 
@@ -173,7 +171,7 @@ namespace Winery
             else
             {
                 MaxVolumeTextBox.ClearValue(BorderBrushProperty);
-                NewContainer.MaxVolume = maxVolume; // Ensure the parsed value is set to the container
+                NewContainer.MaxVolume = maxVolume; 
             }
 
             if (StatusComboBox.SelectedItem == null)
@@ -220,7 +218,7 @@ namespace Winery
 
             if (String.IsNullOrWhiteSpace(CurrentVolumeTextBox.Text) || !int.TryParse(CurrentVolumeTextBox.Text, out int currentVolume))
             {
-                NewContainer.CurrentVolume = 0; // Default value
+                NewContainer.CurrentVolume = 0;
             }
             else
             {
