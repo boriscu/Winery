@@ -1,14 +1,16 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel;
+using System.Data.Entity;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Winery
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private Container selectedContainer;
         private Wine selectedWine;
         private int selectedTab;
+        private bool isMainPageVisible = true;
 
         public Container SelectedContainer
         {
@@ -16,6 +18,7 @@ namespace Winery
             set
             {
                 selectedContainer = value;
+                OnPropertyChanged(nameof(SelectedContainer));
             }
         }
 
@@ -25,6 +28,7 @@ namespace Winery
             set
             {
                 selectedWine = value;
+                OnPropertyChanged(nameof(SelectedWine));
             }
         }
 
@@ -34,6 +38,17 @@ namespace Winery
             set
             {
                 selectedTab = value;
+                OnPropertyChanged(nameof(SelectedTab));
+            }
+        }
+
+        public bool IsMainPageVisible
+        {
+            get => isMainPageVisible;
+            set
+            {
+                isMainPageVisible = value;
+                OnPropertyChanged(nameof(IsMainPageVisible));
             }
         }
 
@@ -103,7 +118,7 @@ namespace Winery
         {
             if (sender is DataGridRow row && row.Item is Container selectedContainer)
             {
-                MainTabControl.Visibility = Visibility.Collapsed;
+                IsMainPageVisible = false;
                 MainFrame.Visibility = Visibility.Visible;
                 MainFrame.Navigate(new ContainerDetailsPage(selectedContainer, this));
             }
@@ -111,8 +126,14 @@ namespace Winery
 
         public void ShowMainView()
         {
-            MainTabControl.Visibility = Visibility.Visible;
+            IsMainPageVisible = true;
             MainFrame.Visibility = Visibility.Collapsed;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
