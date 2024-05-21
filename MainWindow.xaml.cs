@@ -1,25 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Winery
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private Container selectedContainer;
@@ -52,6 +36,7 @@ namespace Winery
                 selectedTab = value;
             }
         }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -109,9 +94,25 @@ namespace Winery
             }
         }
 
-        private void Btn_Click(object sender, RoutedEventArgs e)
+        private void DataGridContainers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBox.Show($"Selected tab: {SelectedTab}");
+            // Intentionally left empty
+        }
+
+        private void DataGridRow_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (sender is DataGridRow row && row.Item is Container selectedContainer)
+            {
+                MainTabControl.Visibility = Visibility.Collapsed;
+                MainFrame.Visibility = Visibility.Visible;
+                MainFrame.Navigate(new ContainerDetailsPage(selectedContainer, this));
+            }
+        }
+
+        public void ShowMainView()
+        {
+            MainTabControl.Visibility = Visibility.Visible;
+            MainFrame.Visibility = Visibility.Collapsed;
         }
     }
 }

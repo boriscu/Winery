@@ -6,13 +6,60 @@
         xmlns:local="clr-namespace:Winery"
         mc:Ignorable="d"
         Title="MainWindow" Height="464" Width="800">
-    <Grid>
-        <TabControl SelectedIndex="{Binding SelectedTab}">
-            <!-- Cars Tab -->
-            <TabItem Header="Containers">
-                <Grid>
-                    <DataGrid Name="dataGridContainers" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedContainer}" SelectionMode="Single" Margin="10,10,10,50">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <Style x:Key="DataGridRowStyle" TargetType="DataGridRow">
+            <Setter Property="Cursor" Value="Hand"/>
+            <EventSetter Event="MouseLeftButtonUp" Handler="DataGridRow_MouseLeftButtonUp"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#d3d3d3"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="TabItemStyle" TargetType="TabItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="ContentSite"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"
+                                              ContentSource="Header"
+                                              Margin="12,2"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#673ab7"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="0,0,0,-44">
+        <!-- Header with image and title -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">
+            <Image Source="pack://application:,,,/Images/grape.png" Width="40" Height="40" Margin="0,0,10,0"/>
+            <TextBlock Text="Grape" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
+        </StackPanel>
 
+        <TabControl x:Name="MainTabControl" SelectedIndex="{Binding SelectedTab}" Margin="0,50,0,0">
+            <!-- Containers Tab -->
+            <TabItem Header="Containers" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <DataGrid Name="dataGridContainers" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedContainer}" SelectionMode="Single" Margin="10,10,10,50" SelectionChanged="DataGridContainers_SelectionChanged" RowStyle="{StaticResource DataGridRowStyle}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Tank ID" Binding="{Binding TankID}" Width="*" />
                             <DataGridTextColumn Header="Wine ID" Binding="{Binding WineID}" Width="*" />
@@ -41,8 +88,8 @@
                     <Button Content="Add Container" HorizontalAlignment="Left" Margin="10,370,0,0" VerticalAlignment="Top" Height="28" Width="96" Click="AddContainerButton_Click"/>
                 </Grid>
             </TabItem>
-            <!-- Locations Tab -->
-            <TabItem Header="Wines">
+            <!-- Wines Tab -->
+            <TabItem Header="Wines" Style="{StaticResource TabItemStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="19*"/>
@@ -56,5 +103,6 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <Frame Name="MainFrame" NavigationUIVisibility="Hidden" Visibility="Collapsed" />
     </Grid>
 </Window>
