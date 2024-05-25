@@ -76,6 +76,9 @@
     <Compile Include="WineCreationWindow.xaml.cs">
       <DependentUpon>WineCreationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WineDetailsPage.xaml.cs">
+      <DependentUpon>WineDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WineryContext.cs" />
     <Page Include="ContainerCreationWindow.xaml">
       <SubType>Designer</SubType>
@@ -98,6 +101,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="WineCreationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WineDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,6 +151,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\wine.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

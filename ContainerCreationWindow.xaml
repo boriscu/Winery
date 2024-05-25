@@ -5,7 +5,27 @@
     <Grid>
         <StackPanel Margin="10">
             <TextBox Name="TankIDTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Tank ID (Optional)" Margin="0,0,0,10"/>
-            <TextBox Name="WineIDTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Wine ID (Optional)" Margin="0,0,0,10"/>
+            <ComboBox Name="WineIDComboBox" IsEditable="True" Margin="0,0,0,10" Width="200" HorizontalAlignment="Left">
+                <ComboBox.Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="MinWidth" Value="200" />
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ComboBox">
+                                            <Grid>
+                                                <TextBox x:Name="PART_EditableTextBox" HorizontalAlignment="Left" MinWidth="200" IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                <TextBlock Text="Select or type Wine ID" VerticalAlignment="Center" Margin="5,0,0,0" Foreground="Gray" IsHitTestVisible="False" />
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Style>
+            </ComboBox>
             <TextBox Name="MaxVolumeTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Max Volume (ml)" Margin="0,0,0,10"/>
             <ComboBox Name="TypeComboBox" Margin="0,0,0,10">
                 <ComboBoxItem Content="Select Type" IsEnabled="False" IsSelected="True" />
@@ -15,7 +35,6 @@
                 <ComboBoxItem Content="Keg"/>
                 <ComboBoxItem Content="Vat"/>
             </ComboBox>
-
             <ComboBox Name="StatusComboBox" Margin="0,0,0,10">
                 <ComboBoxItem Content="Select Status" IsEnabled="False" IsSelected="True" />
                 <ComboBoxItem Content="Closed"/>
@@ -24,7 +43,6 @@
                 <ComboBoxItem Content="Maintenance"/>
                 <ComboBoxItem Content="Empty"/>
             </ComboBox>
-
             <ComboBox Name="LocationComboBox" Margin="0,0,0,10">
                 <ComboBoxItem Content="Select Location" IsEnabled="False" IsSelected="True" />
                 <ComboBoxItem Content="Basement"/>

@@ -14,6 +14,7 @@ namespace Winery
         public ContainerCreationWindow(Container containerInfo = null)
         {
             InitializeComponent();
+            LoadWineIDs();
 
             if (containerInfo != null)
             {
@@ -23,7 +24,7 @@ namespace Winery
 
                 // Pre-populate fields
                 TankIDTextBox.Text = NewContainer.TankID;
-                WineIDTextBox.Text = NewContainer.WineID;
+                WineIDComboBox.Text = NewContainer.WineID;
                 MaxVolumeTextBox.Text = NewContainer.MaxVolume.ToString();
                 CurrentVolumeTextBox.Text = NewContainer.CurrentVolume.ToString();
                 TypeComboBox.SelectedItem = TypeComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == NewContainer.Type.ToString());
@@ -40,8 +41,15 @@ namespace Winery
                 this.DataContext = NewContainer;
 
                 this.Title = "Add Container";
-                ActionButton.Content = "Add"; 
+                ActionButton.Content = "Add";
             }
+        }
+
+        private void LoadWineIDs()
+        {
+            var context = WineryContext.Instance;
+            var wineIDs = context.Wines.Select(w => w.WineID).ToList();
+            WineIDComboBox.ItemsSource = wineIDs;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -55,7 +63,7 @@ namespace Winery
                     var updateContainer = context.Containers.FirstOrDefault(c => c.TankID == NewContainer.TankID);
                     if (updateContainer != null)
                     {
-                        updateContainer.WineID = NewContainer.WineID;
+                        updateContainer.WineID = WineIDComboBox.Text;
                         updateContainer.MaxVolume = NewContainer.MaxVolume;
                         updateContainer.Type = NewContainer.Type;
                         updateContainer.Status = NewContainer.Status;
@@ -82,6 +90,7 @@ namespace Winery
                         NewContainer.TankID = TankIDTextBox.Text;
                     }
 
+                    NewContainer.WineID = WineIDComboBox.Text;
                     NewContainer.LastEditDate = DateTime.Now;
 
                     context.Containers.Add(NewContainer);
@@ -171,7 +180,7 @@ namespace Winery
             else
             {
                 MaxVolumeTextBox.ClearValue(BorderBrushProperty);
-                NewContainer.MaxVolume = maxVolume; 
+                NewContainer.MaxVolume = maxVolume;
             }
 
             if (StatusComboBox.SelectedItem == null)
