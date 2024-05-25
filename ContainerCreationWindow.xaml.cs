@@ -237,6 +237,17 @@ namespace Winery
                 NewContainer.CurrentVolume = currentVolume;
             }
 
+            if (NewContainer.CurrentVolume > NewContainer.MaxVolume)
+            {
+                retVal = false;
+                errorMessage += "Current Volume cannot be greater than Max Volume!\n";
+                CurrentVolumeTextBox.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                CurrentVolumeTextBox.ClearValue(BorderBrushProperty);
+            }
+
             if (String.IsNullOrWhiteSpace(WineIDComboBox.Text) || !context.Wines.Any(w => w.WineID == WineIDComboBox.Text))
             {
                 retVal = false;
@@ -250,5 +261,6 @@ namespace Winery
 
             return retVal;
         }
+
     }
 }
