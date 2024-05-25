@@ -63,6 +63,12 @@ namespace Winery
                     var updateContainer = context.Containers.FirstOrDefault(c => c.TankID == NewContainer.TankID);
                     if (updateContainer != null)
                     {
+                        if (!ValidateContainerVolumes(NewContainer))
+                        {
+                            MessageBox.Show("Current Volume cannot be greater than Max Volume!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
                         updateContainer.WineID = WineIDComboBox.Text;
                         updateContainer.MaxVolume = NewContainer.MaxVolume;
                         updateContainer.Type = NewContainer.Type;
@@ -88,6 +94,12 @@ namespace Winery
                             return;
                         }
                         NewContainer.TankID = TankIDTextBox.Text;
+                    }
+
+                    if (!ValidateContainerVolumes(NewContainer))
+                    {
+                        MessageBox.Show("Current Volume cannot be greater than Max Volume!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
                     }
 
                     NewContainer.WineID = WineIDComboBox.Text;
@@ -123,7 +135,6 @@ namespace Winery
             }
         }
 
-
         private string GenerateUniqueTankID(string prefix)
         {
             var context = WineryContext.Instance;
@@ -146,12 +157,22 @@ namespace Winery
             }
         }
 
+        private bool ValidateContainerVolumes(Container container)
+        {
+            return container.CurrentVolume <= container.MaxVolume;
+        }
+
+
         private bool ValidateInput(out string errorMessage)
         {
             bool retVal = true;
             errorMessage = "";
 
             var context = WineryContext.Instance;
+
+            // Initialize local variables
+            int maxVolume = 0;
+            int currentVolume = 0;
 
             if (TypeComboBox.SelectedItem == null)
             {
@@ -161,20 +182,10 @@ namespace Winery
             }
             else
             {
-                try
-                {
-                    NewContainer.Type = (Container.ContainerType)Enum.Parse(typeof(Container.ContainerType), ((ComboBoxItem)TypeComboBox.SelectedItem).Content.ToString());
-                    TypeComboBox.ClearValue(BorderBrushProperty);
-                }
-                catch (Exception)
-                {
-                    retVal = false;
-                    errorMessage += "Invalid Type selection!\n";
-                    TypeComboBox.BorderBrush = Brushes.Red;
-                }
+                TypeComboBox.ClearValue(BorderBrushProperty);
             }
 
-            if (String.IsNullOrWhiteSpace(MaxVolumeTextBox.Text) || !int.TryParse(MaxVolumeTextBox.Text, out int maxVolume) || maxVolume <= 0)
+            if (String.IsNullOrWhiteSpace(MaxVolumeTextBox.Text) || !int.TryParse(MaxVolumeTextBox.Text, out maxVolume) || maxVolume <= 0)
             {
                 retVal = false;
                 errorMessage += "Enter a valid Max Volume greater than 0!\n";
@@ -183,7 +194,6 @@ namespace Winery
             else
             {
                 MaxVolumeTextBox.ClearValue(BorderBrushProperty);
-                NewContainer.MaxVolume = maxVolume;
             }
 
             if (StatusComboBox.SelectedItem == null)
@@ -194,17 +204,7 @@ namespace Winery
             }
             else
             {
-                try
-                {
-                    NewContainer.Status = (Container.ContainerStatus)Enum.Parse(typeof(Container.ContainerStatus), ((ComboBoxItem)StatusComboBox.SelectedItem).Content.ToString());
-                    StatusComboBox.ClearValue(BorderBrushProperty);
-                }
-                catch (Exception)
-                {
-                    retVal = false;
-                    errorMessage += "Invalid Status selection!\n";
-                    StatusComboBox.BorderBrush = Brushes.Red;
-                }
+                StatusComboBox.ClearValue(BorderBrushProperty);
             }
 
             if (LocationComboBox.SelectedItem == null)
@@ -215,29 +215,15 @@ namespace Winery
             }
             else
             {
-                try
-                {
-                    NewContainer.Location = (Container.ContainerLocation)Enum.Parse(typeof(Container.ContainerLocation), ((ComboBoxItem)LocationComboBox.SelectedItem).Content.ToString());
-                    LocationComboBox.ClearValue(BorderBrushProperty);
-                }
-                catch (Exception)
-                {
-                    retVal = false;
-                    errorMessage += "Invalid Location selection!\n";
-                    LocationComboBox.BorderBrush = Brushes.Red;
-                }
+                LocationComboBox.ClearValue(BorderBrushProperty);
             }
 
-            if (String.IsNullOrWhiteSpace(CurrentVolumeTextBox.Text) || !int.TryParse(CurrentVolumeTextBox.Text, out int currentVolume))
+            if (String.IsNullOrWhiteSpace(CurrentVolumeTextBox.Text) || !int.TryParse(CurrentVolumeTextBox.Text, out currentVolume))
             {
-                NewContainer.CurrentVolume = 0;
-            }
-            else
-            {
-                NewContainer.CurrentVolume = currentVolume;
+                currentVolume = 0;
             }
 
-            if (NewContainer.CurrentVolume > NewContainer.MaxVolume)
+            if (currentVolume > maxVolume)
             {
                 retVal = false;
                 errorMessage += "Current Volume cannot be greater than Max Volume!\n";
@@ -257,6 +243,15 @@ namespace Winery
             else
             {
                 WineIDComboBox.ClearValue(BorderBrushProperty);
+            }
+
+            if (retVal)
+            {
+                NewContainer.Type = (Container.ContainerType)Enum.Parse(typeof(Container.ContainerType), ((ComboBoxItem)TypeComboBox.SelectedItem).Content.ToString());
+                NewContainer.MaxVolume = maxVolume;
+                NewContainer.Status = (Container.ContainerStatus)Enum.Parse(typeof(Container.ContainerStatus), ((ComboBoxItem)StatusComboBox.SelectedItem).Content.ToString());
+                NewContainer.Location = (Container.ContainerLocation)Enum.Parse(typeof(Container.ContainerLocation), ((ComboBoxItem)LocationComboBox.SelectedItem).Content.ToString());
+                NewContainer.CurrentVolume = currentVolume;
             }
 
             return retVal;
