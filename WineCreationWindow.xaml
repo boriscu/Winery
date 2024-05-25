@@ -4,7 +4,7 @@
         Title="Add Wine" Height="600" Width="400">
     <Grid>
         <StackPanel Margin="10">
-            <TextBox Name="WineIDTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Wine ID" Margin="0,0,0,10"/>
+            <TextBox Name="WineIDTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Wine ID (Optional)" Margin="0,0,0,10"/>
             <ComboBox Name="TypeComboBox" Margin="0,0,0,10">
                 <ComboBoxItem Content="Select Type" IsEnabled="False" IsSelected="True" />
                 <ComboBoxItem Content="Rose"/>

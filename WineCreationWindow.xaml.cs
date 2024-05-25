@@ -69,7 +69,7 @@ namespace Winery
                 }
                 else
                 {
-                    if (string.IsNullOrWhiteSpace(WineIDTextBox.Text))
+                    if (string.IsNullOrWhiteSpace(WineIDTextBox.Text) || WineIDTextBox.Text == "Wine ID (Optional)")
                     {
                         var selectedType = ((ComboBoxItem)TypeComboBox.SelectedItem).Content.ToString();
                         string prefix = selectedType.Substring(0, 2).ToUpper();
