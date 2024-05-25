@@ -33,6 +33,8 @@ namespace Winery
 
                 this.Title = "Update Container";
                 ActionButton.Content = "Save";
+
+                TankIDTextBox.IsReadOnly = true;
             }
             else
             {
@@ -42,6 +44,8 @@ namespace Winery
 
                 this.Title = "Add Container";
                 ActionButton.Content = "Add";
+
+                TankIDTextBox.IsReadOnly = false;
             }
         }
 
@@ -162,7 +166,6 @@ namespace Winery
             return container.CurrentVolume <= container.MaxVolume;
         }
 
-
         private bool ValidateInput(out string errorMessage)
         {
             bool retVal = true;
@@ -256,6 +259,5 @@ namespace Winery
 
             return retVal;
         }
-
     }
 }
