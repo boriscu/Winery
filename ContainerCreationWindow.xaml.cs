@@ -22,7 +22,6 @@ namespace Winery
                 NewContainer = containerInfo;
                 this.DataContext = NewContainer;
 
-                // Pre-populate fields
                 TankIDTextBox.Text = NewContainer.TankID;
                 WineIDComboBox.Text = NewContainer.WineID;
                 MaxVolumeTextBox.Text = NewContainer.MaxVolume.ToString();
@@ -173,7 +172,6 @@ namespace Winery
 
             var context = WineryContext.Instance;
 
-            // Initialize local variables
             int maxVolume = 0;
             int currentVolume = 0;
 
