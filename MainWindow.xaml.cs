@@ -75,6 +75,14 @@ namespace Winery
             dataGridContainers.ItemsSource = WineryContext.Instance.Containers.Local;
         }
 
+        private void AddWineButton_Click(object sender, RoutedEventArgs e)
+        {
+            var wineCreationWindow = new WineCreationWindow();
+            wineCreationWindow.ShowDialog();
+            dataGridWines.ItemsSource = null;
+            dataGridWines.ItemsSource = WineryContext.Instance.Wines.Local;
+        }
+
         private void EditContainer_Click(object sender, RoutedEventArgs e)
         {
             if (dataGridContainers.SelectedItem is Container selectedContainer)
@@ -106,6 +114,40 @@ namespace Winery
             else
             {
                 MessageBox.Show("Please select a container to delete.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void EditWine_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGridWines.SelectedItem is Wine selectedWine)
+            {
+                var wineCreationWindow = new WineCreationWindow(selectedWine);
+                wineCreationWindow.ShowDialog();
+                dataGridWines.ItemsSource = null;
+                dataGridWines.ItemsSource = WineryContext.Instance.Wines.Local;
+            }
+            else
+            {
+                MessageBox.Show("Please select a wine to edit.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void DeleteWine_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedWine != null)
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this wine?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    WineryContext.Instance.Wines.Remove(SelectedWine);
+                    WineryContext.Instance.SaveChanges();
+                    dataGridWines.ItemsSource = null;
+                    dataGridWines.ItemsSource = WineryContext.Instance.Wines.Local;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a wine to delete.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

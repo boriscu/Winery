@@ -1,0 +1,29 @@
+﻿<Window x:Class="Winery.WineCreationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add Wine" Height="600" Width="400">
+    <Grid>
+        <StackPanel Margin="10">
+            <TextBox Name="WineIDTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Wine ID" Margin="0,0,0,10"/>
+            <ComboBox Name="TypeComboBox" Margin="0,0,0,10">
+                <ComboBoxItem Content="Select Type" IsEnabled="False" IsSelected="True" />
+                <ComboBoxItem Content="Rose"/>
+                <ComboBoxItem Content="White"/>
+                <ComboBoxItem Content="Red"/>
+                <ComboBoxItem Content="Sparkling"/>
+                <ComboBoxItem Content="Orange"/>
+            </ComboBox>
+            <TextBox Name="SweetnessTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Sweetness" Margin="0,0,0,10"/>
+            <TextBox Name="SulfurLevelTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Sulfur Level" Margin="0,0,0,10"/>
+            <TextBox Name="PressureTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Pressure (Optional)" Margin="0,0,0,10"/>
+            <TextBox Name="VineyardTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Vineyard" Margin="0,0,0,10"/>
+            <TextBox Name="RegionTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Region" Margin="0,0,0,10"/>
+            <TextBox Name="AlcoholContentTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Alcohol Content (Optional)" Margin="0,0,0,10"/>
+            <TextBox Name="NotesTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Notes (Optional)" Margin="0,0,0,10"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="ActionButton" Content="Add" Width="100" Click="AddButton_Click" Margin="0,0,10,0"/>
+                <Button Content="Cancel" Width="100" Click="CancelButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
