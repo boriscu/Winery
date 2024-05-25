@@ -188,16 +188,32 @@ namespace Winery
             }
 
             int pressure = 0;
-            if (!String.IsNullOrWhiteSpace(PressureTextBox.Text) && (!int.TryParse(PressureTextBox.Text, out pressure) || pressure < 0 || pressure > 10))
+            if (NewWine.Type == Wine.WineType.Sparkling)
             {
-                retVal = false;
-                errorMessage += "Enter a valid Pressure between 0 and 10!\n";
-                PressureTextBox.BorderBrush = Brushes.Red;
+                if (!String.IsNullOrWhiteSpace(PressureTextBox.Text) && (!int.TryParse(PressureTextBox.Text, out pressure) || pressure < 0 || pressure > 10))
+                {
+                    retVal = false;
+                    errorMessage += "Enter a valid Pressure between 0 and 10!\n";
+                    PressureTextBox.BorderBrush = Brushes.Red;
+                }
+                else
+                {
+                    PressureTextBox.ClearValue(BorderBrushProperty);
+                    NewWine.Pressure = String.IsNullOrWhiteSpace(PressureTextBox.Text) ? 0 : pressure;
+                }
             }
             else
             {
-                PressureTextBox.ClearValue(BorderBrushProperty);
-                NewWine.Pressure = pressure;
+                if (!String.IsNullOrWhiteSpace(PressureTextBox.Text))
+                {
+                    MessageBox.Show("Pressure can only be set for Sparkling wine. It will be set to null.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    PressureTextBox.ClearValue(BorderBrushProperty);
+                    NewWine.Pressure = 0;
+                }
+                else
+                {
+                    NewWine.Pressure = 0;
+                }
             }
 
             if (String.IsNullOrWhiteSpace(VineyardTextBox.Text))
@@ -241,5 +257,6 @@ namespace Winery
 
             return retVal;
         }
+
     }
 }

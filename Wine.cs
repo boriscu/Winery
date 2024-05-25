@@ -49,7 +49,6 @@ namespace Winery
 
         public string Notes { get; set; }
 
-        // Navigation property to Containers
         public virtual ICollection<Container> Containers { get; set; }
 
         public override string ToString()
