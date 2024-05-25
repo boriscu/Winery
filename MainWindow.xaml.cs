@@ -156,13 +156,27 @@ namespace Winery
             // Intentionally left empty
         }
 
+        private void DataGridWines_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Intentionally left empty
+        }
+
         private void DataGridRow_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (sender is DataGridRow row && row.Item is Container selectedContainer)
+            if (sender is DataGridRow row)
             {
-                IsMainPageVisible = false;
-                MainFrame.Visibility = Visibility.Visible;
-                MainFrame.Navigate(new ContainerDetailsPage(selectedContainer, this));
+                if (row.Item is Container selectedContainer)
+                {
+                    IsMainPageVisible = false;
+                    MainFrame.Visibility = Visibility.Visible;
+                    MainFrame.Navigate(new ContainerDetailsPage(selectedContainer, this));
+                }
+                else if (row.Item is Wine selectedWine)
+                {
+                    IsMainPageVisible = false;
+                    MainFrame.Visibility = Visibility.Visible;
+                    MainFrame.Navigate(new WineDetailsPage(selectedWine, this));
+                }
             }
         }
 

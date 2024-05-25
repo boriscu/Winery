@@ -27,13 +27,11 @@
             <Grid Grid.Column="0" Grid.RowSpan="2" Margin="80,0,0,0" VerticalAlignment="Center">
                 <Grid>
                     <Image Source="pack://application:,,,/Images/wine.png" Stretch="Uniform" VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding Type, StringFormat='Type: {0}'}" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,70,0,0" FontWeight="Bold" FontSize="12"/>
-                    <TextBlock Text="{Binding Vineyard, StringFormat='Vineyard: {0}'}" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,120,0,0" FontWeight="Bold" FontSize="12"/>
                 </Grid>
             </Grid>
 
             <!-- Right column with the details, occupying the second row -->
-            <StackPanel Grid.Column="1" Margin="151,168,51,51" VerticalAlignment="Top" Grid.RowSpan="2">
+            <StackPanel Grid.Column="1" Margin="146,89,51,0" VerticalAlignment="Top" Grid.RowSpan="2" Height="207">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
