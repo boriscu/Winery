@@ -123,6 +123,7 @@ namespace Winery
             }
         }
 
+
         private string GenerateUniqueTankID(string prefix)
         {
             var context = WineryContext.Instance;
@@ -149,6 +150,8 @@ namespace Winery
         {
             bool retVal = true;
             errorMessage = "";
+
+            var context = WineryContext.Instance;
 
             if (TypeComboBox.SelectedItem == null)
             {
@@ -232,6 +235,17 @@ namespace Winery
             else
             {
                 NewContainer.CurrentVolume = currentVolume;
+            }
+
+            if (String.IsNullOrWhiteSpace(WineIDComboBox.Text) || !context.Wines.Any(w => w.WineID == WineIDComboBox.Text))
+            {
+                retVal = false;
+                errorMessage += "Enter a valid Wine ID!\n";
+                WineIDComboBox.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                WineIDComboBox.ClearValue(BorderBrushProperty);
             }
 
             return retVal;
