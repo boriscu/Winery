@@ -42,6 +42,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -71,6 +72,9 @@
 
                     <TextBlock Text="Alcohol Content:" FontWeight="Bold" Grid.Row="7" Grid.Column="0"/>
                     <TextBlock Text="{Binding AlcoholContent}" Grid.Row="7" Grid.Column="1" Margin="10,0,0,0"/>
+
+                    <TextBlock Text="Note:" FontWeight="Bold" Grid.Row="8" Grid.Column="0"/>
+                    <TextBlock Text="{Binding Notes}" Grid.Row="8" Grid.Column="1" Margin="10,0,0,0"/>
                 </Grid>
             </StackPanel>
         </Grid>

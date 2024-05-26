@@ -256,7 +256,14 @@ namespace Winery
                 NewWine.AlcoholContent = alcoholContent;
             }
 
-            NewWine.Notes = NotesTextBox.Text;
+            if (String.IsNullOrWhiteSpace(NotesTextBox.Text) || NotesTextBox.Text == "Notes (Optional)")
+            {
+                NewWine.Notes = string.Empty;
+            }
+            else
+            {
+                NewWine.Notes = NotesTextBox.Text;
+            }
 
             return retVal;
         }
