@@ -72,7 +72,7 @@ namespace Winery
                             return;
                         }
 
-                        updateContainer.WineID = WineIDComboBox.Text;
+                        updateContainer.WineID = NewContainer.WineID;
                         updateContainer.MaxVolume = NewContainer.MaxVolume;
                         updateContainer.Type = NewContainer.Type;
                         updateContainer.Status = NewContainer.Status;
@@ -105,9 +105,16 @@ namespace Winery
                         return;
                     }
 
-                    NewContainer.WineID = WineIDComboBox.Text;
-                    NewContainer.LastEditDate = DateTime.Now;
+                    if (string.IsNullOrWhiteSpace(WineIDComboBox.Text))
+                    {
+                        NewContainer.WineID = null;
+                    }
+                    else
+                    {
+                        NewContainer.WineID = WineIDComboBox.Text;
+                    }
 
+                    NewContainer.LastEditDate = DateTime.Now;
                     context.Containers.Add(NewContainer);
                 }
 
@@ -235,15 +242,14 @@ namespace Winery
                 CurrentVolumeTextBox.ClearValue(BorderBrushProperty);
             }
 
-            if (String.IsNullOrWhiteSpace(WineIDComboBox.Text) || !context.Wines.Any(w => w.WineID == WineIDComboBox.Text))
+            if (!string.IsNullOrWhiteSpace(WineIDComboBox.Text) && !context.Wines.Any(w => w.WineID == WineIDComboBox.Text))
             {
-                retVal = false;
-                errorMessage += "Enter a valid Wine ID!\n";
-                WineIDComboBox.BorderBrush = Brushes.Red;
+                errorMessage += "Invalid Wine ID. It will be set to null.\n";
+                NewContainer.WineID = null;
             }
             else
             {
-                WineIDComboBox.ClearValue(BorderBrushProperty);
+                NewContainer.WineID = WineIDComboBox.Text;
             }
 
             if (retVal)
