@@ -13,12 +13,24 @@
                 <ComboBoxItem Content="Sparkling"/>
                 <ComboBoxItem Content="Orange"/>
             </ComboBox>
-            <TextBox Name="SweetnessTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Sweetness" Margin="0,0,0,10"/>
-            <TextBox Name="SulfurLevelTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Sulfur Level" Margin="0,0,0,10"/>
-            <TextBox Name="PressureTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Pressure (Optional)" Margin="0,0,0,10" TextChanged="PressureTextBox_TextChanged"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBox Name="SweetnessTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Sweetness" Width="250"/>
+                <TextBlock Text="?" FontSize="14" Foreground="#673ab7" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Enter a valid Sweetness between 0 and 100"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBox Name="SulfurLevelTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Sulfur Level" Width="250"/>
+                <TextBlock Text="?" FontSize="14" Foreground="#673ab7" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Enter a valid Sulfur Level between 0 and 200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBox Name="PressureTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Pressure (Optional)" Width="250" TextChanged="PressureTextBox_TextChanged"/>
+                <TextBlock Text="?" FontSize="14" Foreground="#673ab7" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Enter a valid Pressure between 0 and 10 (for Sparkling wine only)"/>
+            </StackPanel>
             <TextBox Name="VineyardTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Vineyard" Margin="0,0,0,10"/>
             <TextBox Name="RegionTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Region" Margin="0,0,0,10"/>
-            <TextBox Name="AlcoholContentTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Alcohol Content (Optional)" Margin="0,0,0,10"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBox Name="AlcoholContentTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Alcohol Content (Optional)" Width="250"/>
+                <TextBlock Text="?" FontSize="14" Foreground="#673ab7" VerticalAlignment="Center" Margin="5,0,0,0" ToolTip="Enter a valid Alcohol Content between 0 and 100"/>
+            </StackPanel>
             <TextBox Name="NotesTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Notes (Optional)" Margin="0,0,0,10"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="ActionButton" Content="Add" Width="100" Click="AddButton_Click" Margin="0,0,10,0"/>
