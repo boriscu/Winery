@@ -15,7 +15,7 @@
             </ComboBox>
             <TextBox Name="SweetnessTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Sweetness" Margin="0,0,0,10"/>
             <TextBox Name="SulfurLevelTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Sulfur Level" Margin="0,0,0,10"/>
-            <TextBox Name="PressureTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Pressure (Optional)" Margin="0,0,0,10"/>
+            <TextBox Name="PressureTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Pressure (Optional)" Margin="0,0,0,10" TextChanged="PressureTextBox_TextChanged"/>
             <TextBox Name="VineyardTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Vineyard" Margin="0,0,0,10"/>
             <TextBox Name="RegionTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Region" Margin="0,0,0,10"/>
             <TextBox Name="AlcoholContentTextBox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Alcohol Content (Optional)" Margin="0,0,0,10"/>

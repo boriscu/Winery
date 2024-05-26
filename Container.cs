@@ -166,8 +166,6 @@ namespace Winery
 
         #region Methods
         public Container() { }
-
-        // Corrected navigation property
         public virtual Wine Wine { get; set; }
 
         protected void OnPropertyChanged(string propertyName)

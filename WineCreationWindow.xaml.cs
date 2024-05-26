@@ -10,6 +10,7 @@ namespace Winery
     {
         private Wine NewWine;
         private bool isEdit;
+        private bool isPressureChanged;
 
         public WineCreationWindow(Wine wineInfo = null)
         {
@@ -44,6 +45,8 @@ namespace Winery
                 this.Title = "Add Wine";
                 ActionButton.Content = "Add";
             }
+
+            isPressureChanged = false;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -204,7 +207,7 @@ namespace Winery
             }
             else
             {
-                if (!String.IsNullOrWhiteSpace(PressureTextBox.Text))
+                if (isPressureChanged)
                 {
                     MessageBox.Show("Pressure can only be set for Sparkling wine. It will be set to null.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     PressureTextBox.ClearValue(BorderBrushProperty);
@@ -258,5 +261,16 @@ namespace Winery
             return retVal;
         }
 
+        private void PressureTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(PressureTextBox.Text) && PressureTextBox.Text != "Pressure (Optional)")
+            {
+                isPressureChanged = true;
+            }
+            else
+            {
+                isPressureChanged = false;
+            }
+        }
     }
 }
